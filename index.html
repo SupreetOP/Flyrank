@@ -4,11 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Content Opportunity Scoring — FlyRank ML Internship</title>
+    <title>Refresh / Content Opportunity Scoring — FlyRank ML Internship</title>
 
     <style>
         * {
             box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
@@ -28,7 +32,7 @@
         header {
             background: #111827;
             color: white;
-            padding: 70px 0 60px;
+            padding: 75px 0 65px;
         }
 
         header .eyebrow {
@@ -50,13 +54,14 @@
             max-width: 800px;
             font-size: 19px;
             color: #d1d5db;
+            margin-bottom: 0;
         }
 
         .meta {
             display: flex;
             flex-wrap: wrap;
             gap: 12px;
-            margin-top: 28px;
+            margin-top: 30px;
         }
 
         .meta span {
@@ -65,6 +70,33 @@
             padding: 8px 14px;
             border-radius: 999px;
             font-size: 14px;
+        }
+
+        nav {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        nav .container {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding: 14px 0;
+        }
+
+        nav a {
+            white-space: nowrap;
+            color: #4b5563;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        nav a:hover {
+            color: #111827;
         }
 
         main {
@@ -77,7 +109,7 @@
             padding: 38px;
             border-radius: 14px;
             border: 1px solid #e5e7eb;
-            box-shadow: 0 4px 18px rgba(0,0,0,0.04);
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
         }
 
         h2 {
@@ -95,7 +127,8 @@
             margin: 12px 0;
         }
 
-        ul, ol {
+        ul,
+        ol {
             padding-left: 24px;
         }
 
@@ -139,7 +172,8 @@
             font-size: 15px;
         }
 
-        th, td {
+        th,
+        td {
             padding: 13px 15px;
             text-align: left;
             border-bottom: 1px solid #e5e7eb;
@@ -148,6 +182,10 @@
         th {
             background: #f3f4f6;
             color: #111827;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
         }
 
         .highlight {
@@ -200,6 +238,37 @@
             color: #2563eb;
         }
 
+        .repo-link {
+            display: inline-block;
+            margin-top: 8px;
+            font-weight: 600;
+        }
+
+        .recommendation {
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 22px;
+            margin: 20px 0;
+            background: #fafafa;
+        }
+
+        .recommendation h3 {
+            margin-top: 0;
+        }
+
+        .priority {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            background: #111827;
+            color: white;
+            padding: 5px 9px;
+            border-radius: 999px;
+            margin-bottom: 10px;
+        }
+
         footer {
             background: #111827;
             color: #d1d5db;
@@ -223,8 +292,17 @@
                 font-size: 13px;
             }
 
+            th,
+            td {
+                padding: 10px;
+            }
+
             header {
                 padding: 50px 0;
+            }
+
+            nav .container {
+                gap: 15px;
             }
         }
     </style>
@@ -234,10 +312,7 @@
 
 <header>
     <div class="container">
-
-        <div class="eyebrow">
-            ML Internship Research Artifact
-        </div>
+        <div class="eyebrow">ML Internship Research Artifact</div>
 
         <h1>
             Refresh / Content Opportunity Scoring
@@ -254,49 +329,58 @@
             <span>August 2026</span>
             <span>Decision-support analysis</span>
         </div>
-
     </div>
 </header>
 
+<nav>
+    <div class="container">
+        <a href="#abstract">Abstract</a>
+        <a href="#problem">Problem</a>
+        <a href="#data">Data</a>
+        <a href="#methodology">Methodology</a>
+        <a href="#results">Results</a>
+        <a href="#limitations">Limitations</a>
+        <a href="#interpretation">Interpretation</a>
+        <a href="#recommendations">Recommendations</a>
+        <a href="#reproducibility">Reproducibility</a>
+        <a href="#acknowledgments">Data Credit</a>
+    </div>
+</nav>
 
 <main class="container">
 
+    <!-- =========================================================
+         0. ABSTRACT
+    ========================================================== -->
 
-    <!-- ========================================================= -->
-    <!-- 0. ABSTRACT -->
-    <!-- ========================================================= -->
-
-    <section class="abstract">
-
+    <section class="abstract" id="abstract">
         <h2>0. Abstract</h2>
 
         <p>
-            This study asks whether observed content-performance signals can
-            support prioritization of content items for human review.
-            The analysis uses the FlyRank ML Internship dataset, using March
-            2026 performance signals as features and whether a content item
-            received at least one Google Search Console click in April 2026
-            as the outcome.
+            This study examines whether observed content-performance signals
+            can support the prioritization of content items for human review.
+            The analysis uses the FlyRank ML Internship dataset, with March
+            2026 performance signals used as features and whether a content
+            item received at least one Google Search Console click in April
+            2026 used as the outcome.
             A Random Forest classifier using five observed search and
-            Analytics features was evaluated against a transparent Week-4
-            rule-based baseline on the same held-out validation data.
+            Analytics features was evaluated against a transparent rule-based
+            baseline on the same held-out validation data.
             The Random Forest measured a ROC-AUC of 0.9312 and a PR-AUC of
             0.8397, compared with 0.8447 and 0.4858 for the baseline, while
             accuracy was 0.8762 compared with 0.8325.
             The resulting ranked output is intended as directional
-            decision-support for human review rather than as evidence that
-            refreshing content will cause additional clicks.
+            decision-support for human review and not as proof that refreshing
+            content will cause additional clicks.
         </p>
-
     </section>
 
 
-    <!-- ========================================================= -->
-    <!-- 1. PROBLEM FRAMING -->
-    <!-- ========================================================= -->
+    <!-- =========================================================
+         1. PROBLEM FRAMING
+    ========================================================== -->
 
-    <section>
-
+    <section id="problem">
         <h2>1. Problem framing</h2>
 
         <p>
@@ -319,9 +403,9 @@
 
         <p>
             A human reviewer can use the ranking to decide which content items
-            to inspect first. The reviewer should then consider the actual
-            content, search intent, search-result context, seasonality,
-            data quality, and other relevant editorial context.
+            to inspect first. The reviewer should then consider actual content,
+            search intent, search-result context, seasonality, data quality,
+            and other relevant editorial context.
         </p>
 
         <p>
@@ -337,17 +421,15 @@
             prioritize content items for human review rather than automate
             content changes.
         </div>
-
     </section>
 
 
-    <!-- ========================================================= -->
-    <!-- 2. DATA -->
-    <!-- ========================================================= -->
+    <!-- =========================================================
+         2. DATA
+    ========================================================== -->
 
-    <section>
-
-        <h2>2. Data</h2>
+    <section id="data">
+        <h2>2. Data safety</h2>
 
         <p>
             The analysis uses the FlyRank internship warehouse table
@@ -355,34 +437,27 @@
         </p>
 
         <table>
-
             <tr>
                 <th>Property</th>
                 <th>Value</th>
             </tr>
-
             <tr>
                 <td>Observed data range</td>
                 <td>2025-01-27 to 2026-06-30</td>
             </tr>
-
             <tr>
                 <td>Total warehouse rows</td>
                 <td>78,835,655</td>
             </tr>
-
             <tr>
                 <td>Feature window</td>
                 <td>March 2026</td>
             </tr>
-
             <tr>
                 <td>Outcome window</td>
                 <td>April 2026</td>
             </tr>
-
         </table>
-
 
         <h3>Final model features</h3>
 
@@ -394,45 +469,58 @@
             <li><code>ga4_engaged_sessions</code></li>
         </ul>
 
-
-        <h3>Excluded fields</h3>
+        <h3>Excluded fields and safety decisions</h3>
 
         <p>
-            Client and content identifiers were excluded from model features.
-            Other warehouse fields were excluded because they were not required
-            for the final feature vector, could represent availability metadata,
-            could duplicate other measures, or were not appropriate predictive
-            inputs for this task.
+            Client and content identifiers
+            (<code>client_hash_id</code> and <code>content_hash_id</code>)
+            were excluded from model features because they are identifiers,
+            not meaningful performance signals. They are used only for
+            grouping and identifying rows within the internal workflow.
+        </p>
+
+        <p>
+            Data-availability fields such as
+            <code>client_has_gsc</code>,
+            <code>client_has_ga4</code>,
+            <code>gsc_data_available</code>, and
+            <code>ga4_data_available</code> were excluded because they
+            describe availability of measurement rather than the intended
+            performance signals.
+        </p>
+
+        <p>
+            Additional warehouse metrics, including
+            <code>gsc_sum_position</code>, session-level aggregates,
+            traffic-channel fields, AI-source fields,
+            <code>scroll_events</code>, <code>report_date</code>, and
+            <code>month</code>, were excluded from the final model feature
+            vector because they were not part of the final five-feature
+            specification.
         </p>
 
         <p>
             Future outcome information was not included in the model feature
-            set. Label-derived fields such as <code>trend_direction</code>
-            and <code>trend_pct</code> were also treated as inappropriate
-            predictive inputs because they could encode information derived
-            from outcomes or future changes.
+            set. Label-derived fields such as
+            <code>trend_direction</code> and <code>trend_pct</code> were
+            treated as inappropriate predictive inputs because they could
+            encode information derived from outcomes or future changes.
         </p>
 
         <div class="success">
-
-            <strong>Data safety:</strong>
-
+            <strong>Public-safety check:</strong>
             no client names, private queries, or directly identifying client
             information are included in this public research artifact.
-
         </div>
-
     </section>
 
 
-    <!-- ========================================================= -->
-    <!-- 3. METHODOLOGY -->
-    <!-- ========================================================= -->
+    <!-- =========================================================
+         3. METHODOLOGY
+    ========================================================== -->
 
-    <section>
-
+    <section id="methodology">
         <h2>3. Methodology</h2>
-
 
         <h3>Target definition</h3>
 
@@ -440,7 +528,6 @@
             The target is defined as:
             <strong>April 2026 Google Search Console clicks &gt; 0.</strong>
         </p>
-
 
         <h3>Model</h3>
 
@@ -450,6 +537,15 @@
             observed performance signals.
         </p>
 
+        <h3>Model features</h3>
+
+        <ul>
+            <li><code>gsc_impressions</code></li>
+            <li><code>gsc_clicks</code></li>
+            <li><code>gsc_avg_position</code></li>
+            <li><code>ga4_pageviews</code></li>
+            <li><code>ga4_engaged_sessions</code></li>
+        </ul>
 
         <h3>Baseline</h3>
 
@@ -457,7 +553,6 @@
             The Week-4 baseline identifies a potential refresh opportunity
             when impressions are at least 100 and CTR is below 2%.
         </p>
-
 
         <h3>Validation design</h3>
 
@@ -474,25 +569,54 @@
             to completely unseen clients.
         </p>
 
-
         <h3>Leakage control</h3>
 
         <p>
             Future target information and client/content identifiers were
-            excluded from the model feature set. Additional leakage checks
-            found no obvious future-window, target-derived, product-flag,
-            or label-derived features.
+            excluded from the model feature set. Label-derived and future
+            outcome fields were not used as predictive features.
         </p>
 
+        <h3>Random Forest configuration</h3>
+
+        <table>
+            <tr>
+                <th>Parameter</th>
+                <th>Value</th>
+            </tr>
+            <tr>
+                <td><code>n_estimators</code></td>
+                <td>200</td>
+            </tr>
+            <tr>
+                <td><code>max_depth</code></td>
+                <td>10</td>
+            </tr>
+            <tr>
+                <td><code>min_samples_leaf</code></td>
+                <td>20</td>
+            </tr>
+            <tr>
+                <td><code>class_weight</code></td>
+                <td>balanced</td>
+            </tr>
+            <tr>
+                <td><code>random_state</code></td>
+                <td>42</td>
+            </tr>
+            <tr>
+                <td><code>n_jobs</code></td>
+                <td>-1</td>
+            </tr>
+        </table>
     </section>
 
 
-    <!-- ========================================================= -->
-    <!-- 4. RESULTS -->
-    <!-- ========================================================= -->
+    <!-- =========================================================
+         4. RESULTS
+    ========================================================== -->
 
-    <section>
-
+    <section id="results">
         <h2>4. Results</h2>
 
         <p>
@@ -500,46 +624,26 @@
             using the same held-out validation data.
         </p>
 
-
         <div class="metric-grid">
 
             <div class="metric">
-
                 <strong>0.9312</strong>
-
-                <span>
-                    Random Forest ROC-AUC
-                </span>
-
+                <span>Random Forest ROC-AUC</span>
             </div>
 
-
             <div class="metric">
-
                 <strong>0.8397</strong>
-
-                <span>
-                    Random Forest PR-AUC
-                </span>
-
+                <span>Random Forest PR-AUC</span>
             </div>
 
-
             <div class="metric">
-
                 <strong>0.8762</strong>
-
-                <span>
-                    Random Forest Accuracy
-                </span>
-
+                <span>Random Forest Accuracy</span>
             </div>
 
         </div>
 
-
         <table>
-
             <tr>
                 <th>Method</th>
                 <th>ROC-AUC</th>
@@ -555,47 +659,20 @@
             </tr>
 
             <tr>
-                <td>
-                    <strong>Random Forest</strong>
-                </td>
-
-                <td>
-                    <strong>0.9312</strong>
-                </td>
-
-                <td>
-                    <strong>0.8397</strong>
-                </td>
-
-                <td>
-                    <strong>0.8762</strong>
-                </td>
+                <td><strong>Random Forest</strong></td>
+                <td><strong>0.9312</strong></td>
+                <td><strong>0.8397</strong></td>
+                <td><strong>0.8762</strong></td>
             </tr>
-
         </table>
-
 
         <h3>Measured improvement</h3>
 
         <ul>
-
-            <li>
-                ROC-AUC improvement:
-                <strong>+0.0865</strong>
-            </li>
-
-            <li>
-                PR-AUC improvement:
-                <strong>+0.3539</strong>
-            </li>
-
-            <li>
-                Accuracy improvement:
-                <strong>+0.0437</strong>
-            </li>
-
+            <li>ROC-AUC improvement: <strong>+0.0865</strong></li>
+            <li>PR-AUC improvement: <strong>+0.3539</strong></li>
+            <li>Accuracy improvement: <strong>+0.0437</strong></li>
         </ul>
-
 
         <h3>Target base rate</h3>
 
@@ -606,25 +683,27 @@
 
         <p>
             The positive target rate was <strong>18.74%</strong>, while the
-            negative rate was <strong>81.26%</strong>. Accuracy should
-            therefore not be interpreted without considering class imbalance.
+            negative rate was <strong>81.26%</strong>.
+            Accuracy should therefore not be interpreted without considering
+            class imbalance.
         </p>
 
+        <div class="highlight">
+            <strong>Interpretation of the metrics:</strong>
+            ROC-AUC and PR-AUC provide more useful discrimination information
+            than accuracy alone for this imbalanced target. The Random Forest
+            measured higher ROC-AUC and PR-AUC than the transparent baseline
+            on the same held-out validation data.
+        </div>
 
         <figure class="figure">
-
-            <img
-                src="work/figures/model_vs_baseline.png"
-                alt="Model versus baseline metrics"
-            >
-
+            <img src="work/figures/model_vs_baseline.png"
+                 alt="Random Forest versus Week-4 baseline performance">
             <figcaption>
                 Figure 1. Measured Random Forest performance compared with
                 the Week-4 rule baseline.
             </figcaption>
-
         </figure>
-
 
         <h3>Error analysis</h3>
 
@@ -632,9 +711,7 @@
             The Random Forest confusion matrix was:
         </p>
 
-
         <table>
-
             <tr>
                 <th></th>
                 <th>Predicted 0</th>
@@ -652,33 +729,30 @@
                 <td>1,918</td>
                 <td>10,502</td>
             </tr>
-
         </table>
 
-
         <p>
-            False-positive examples included pages with substantial
-            impressions and clicks but no positive April outcome. This shows
-            that strong historical search visibility does not guarantee the
-            defined future outcome.
+            The confusion matrix shows both false positives and false
+            negatives. False positives are observations predicted as positive
+            where the April outcome was zero, while false negatives are
+            observations where the model predicted the negative class despite
+            the presence of at least one April click.
         </p>
 
         <p>
-            False-negative examples included pages with little or no March
-            search activity that nevertheless received many April clicks.
-            This illustrates that future demand can change and may not always
-            be represented by the previous month's signals.
+            These errors show that March performance signals do not perfectly
+            determine the subsequent April outcome. The model therefore
+            provides prioritization support rather than certainty about future
+            content performance.
         </p>
-
     </section>
 
 
-    <!-- ========================================================= -->
-    <!-- 5. LIMITATIONS -->
-    <!-- ========================================================= -->
+    <!-- =========================================================
+         5. LIMITATIONS
+    ========================================================== -->
 
-    <section>
-
+    <section id="limitations">
         <h2>5. Limitations & honest framing</h2>
 
         <ul>
@@ -708,9 +782,9 @@
             </li>
 
             <li>
-                Feature importance indicates model usage of a feature; it does
-                not demonstrate that changing that feature would cause the
-                outcome to change.
+                Feature importance, if inspected, indicates model usage of a
+                feature; it does not demonstrate that changing that feature
+                would cause the outcome to change.
             </li>
 
             <li>
@@ -720,26 +794,65 @@
 
         </ul>
 
-
         <div class="warning">
-
             <strong>Important:</strong>
-
             This work does not claim to predict Google's algorithm and does
             not claim that refreshing content will cause additional clicks.
-
         </div>
-
     </section>
 
 
-    <!-- ========================================================= -->
-    <!-- 6. RANKED RECOMMENDATIONS -->
-    <!-- ========================================================= -->
+    <!-- =========================================================
+         6. INTERPRETATION
+    ========================================================== -->
 
-    <section>
+    <section id="interpretation">
+        <h2>6. Interpretation</h2>
 
-        <h2>6. Ranked recommendations</h2>
+        <p>
+            The main measured result is that the Random Forest separated the
+            defined future-click outcome more effectively than the Week-4
+            rule baseline on the held-out validation data.
+        </p>
+
+        <p>
+            The ROC-AUC increased from 0.8447 for the baseline to 0.9312 for
+            the Random Forest, while PR-AUC increased from 0.4858 to 0.8397.
+            This indicates stronger measured ranking performance for the model
+            under the evaluation setup used here.
+        </p>
+
+        <p>
+            The model uses five observed performance signals:
+            impressions, clicks, average position, pageviews, and engaged
+            sessions. These signals provide different views of historical
+            search visibility and engagement, allowing the Random Forest to
+            capture relationships that a single transparent threshold rule
+            cannot represent.
+        </p>
+
+        <p>
+            A key limitation of this interpretation is that the model's
+            performance does not demonstrate that any individual feature
+            causes future clicks. The analysis identifies predictive
+            association within the observed data and should therefore be used
+            as decision-support.
+        </p>
+
+        <div class="highlight">
+            <strong>Observed finding:</strong>
+            the Random Forest produced stronger measured discrimination than
+            the Week-4 rule baseline under the same held-out validation setup.
+        </div>
+    </section>
+
+
+    <!-- =========================================================
+         7. RECOMMENDATIONS
+    ========================================================== -->
+
+    <section id="recommendations">
+        <h2>7. Ranked recommendations</h2>
 
         <p>
             The Week-7 action playbook provides a transparent rule-based
@@ -748,60 +861,141 @@
             point for human review.
         </p>
 
+        <div class="recommendation">
+            <span class="priority">Priority 1</span>
 
-        <h3>Priority 1 — REFRESH review</h3>
+            <h3>REFRESH review</h3>
 
-        <p>
-            Items with at least 100 impressions and CTR below 2% receive the
-            reason code:
-        </p>
+            <p>
+                Items with at least 100 impressions and CTR below 2% receive
+                the reason code:
+            </p>
 
+            <div class="highlight">
+                <code>HIGH_IMPRESSIONS_LOW_CTR</code>
+            </div>
 
-        <div class="highlight">
-
-            <code>HIGH_IMPRESSIONS_LOW_CTR</code>
-
+            <p>
+                The recommendation queue contains
+                <strong>100,660</strong> items satisfying this rule,
+                representing <strong>30.37%</strong> of the
+                331,437 ranked items.
+            </p>
         </div>
 
+        <div class="recommendation">
+            <span class="priority">Priority 2</span>
 
-        <p>
-            The queue contains 100,660 such items, representing 30.37% of
-            the 331,437 content items.
-        </p>
+            <h3>MONITOR</h3>
 
+            <p>
+                Items that do not satisfy the refresh rule receive:
+            </p>
 
-        <h3>Priority 2 — MONITOR</h3>
+            <div class="highlight">
+                <code>LOW_SEARCH_SIGNAL</code>
+            </div>
 
-        <p>
-            Items that do not satisfy the refresh rule receive:
-        </p>
-
-
-        <div class="highlight">
-
-            <code>LOW_SEARCH_SIGNAL</code>
-
+            <p>
+                There were <strong>230,777</strong> such items,
+                representing <strong>69.63%</strong> of the recommendation
+                queue.
+            </p>
         </div>
 
+        <h3>Ranked recommendation sample</h3>
 
         <p>
-            There were 230,777 such items, representing 69.63% of the queue.
+            The following table shows the top-ranked recommendation scores
+            without exposing client or content identifiers.
         </p>
 
+        <table>
+            <tr>
+                <th>Rank</th>
+                <th>Score</th>
+                <th>Reason code</th>
+                <th>Action</th>
+            </tr>
+
+            <tr>
+                <td>1</td>
+                <td>13.210371</td>
+                <td><code>HIGH_IMPRESSIONS_LOW_CTR</code></td>
+                <td><strong>REFRESH</strong></td>
+            </tr>
+
+            <tr>
+                <td>2</td>
+                <td>12.374843</td>
+                <td><code>HIGH_IMPRESSIONS_LOW_CTR</code></td>
+                <td><strong>REFRESH</strong></td>
+            </tr>
+
+            <tr>
+                <td>3</td>
+                <td>12.335260</td>
+                <td><code>HIGH_IMPRESSIONS_LOW_CTR</code></td>
+                <td><strong>REFRESH</strong></td>
+            </tr>
+
+            <tr>
+                <td>4</td>
+                <td>12.267284</td>
+                <td><code>HIGH_IMPRESSIONS_LOW_CTR</code></td>
+                <td><strong>REFRESH</strong></td>
+            </tr>
+
+            <tr>
+                <td>5</td>
+                <td>12.264864</td>
+                <td><code>HIGH_IMPRESSIONS_LOW_CTR</code></td>
+                <td><strong>REFRESH</strong></td>
+            </tr>
+
+            <tr>
+                <td>6</td>
+                <td>12.206052</td>
+                <td><code>HIGH_IMPRESSIONS_LOW_CTR</code></td>
+                <td><strong>REFRESH</strong></td>
+            </tr>
+
+            <tr>
+                <td>7</td>
+                <td>12.183760</td>
+                <td><code>HIGH_IMPRESSIONS_LOW_CTR</code></td>
+                <td><strong>REFRESH</strong></td>
+            </tr>
+
+            <tr>
+                <td>8</td>
+                <td>12.163452</td>
+                <td><code>HIGH_IMPRESSIONS_LOW_CTR</code></td>
+                <td><strong>REFRESH</strong></td>
+            </tr>
+
+            <tr>
+                <td>9</td>
+                <td>12.154734</td>
+                <td><code>HIGH_IMPRESSIONS_LOW_CTR</code></td>
+                <td><strong>REFRESH</strong></td>
+            </tr>
+
+            <tr>
+                <td>10</td>
+                <td>12.123935</td>
+                <td><code>HIGH_IMPRESSIONS_LOW_CTR</code></td>
+                <td><strong>REFRESH</strong></td>
+            </tr>
+        </table>
 
         <figure class="figure">
-
-            <img
-                src="work/figures/action_distribution.png"
-                alt="Action distribution"
-            >
-
+            <img src="work/figures/action_distribution.png"
+                 alt="Distribution of recommended actions">
             <figcaption>
                 Figure 2. Distribution of rule-based action recommendations.
             </figcaption>
-
         </figure>
-
 
         <h3>Human review requirements</h3>
 
@@ -812,113 +1006,32 @@
             editorial context.
         </p>
 
-
         <h3>No-go cases</h3>
 
         <p>
             The following should not be automated from this analysis:
         </p>
 
-
         <ul>
-
             <li>Publishing content</li>
             <li>Deleting content</li>
             <li>Redirecting URLs</li>
             <li>Changing metadata</li>
             <li>Rewriting content</li>
             <li>Other irreversible content changes</li>
-
         </ul>
-
 
         <p>
             The final content decision remains a human decision.
         </p>
-
     </section>
 
 
-    <!-- ========================================================= -->
-    <!-- 7. ARTIFACTS -->
-    <!-- ========================================================= -->
+    <!-- =========================================================
+         8. REPRODUCIBILITY / ARTIFACTS
+    ========================================================== -->
 
-    <section>
-
-        <h2>7. Artifacts</h2>
-
-        <p>
-            The analysis produced reusable figures and ranked recommendation
-            artifacts for the research paper.
-        </p>
-
-
-        <table>
-
-            <tr>
-                <th>Artifact</th>
-                <th>Purpose</th>
-            </tr>
-
-            <tr>
-                <td>
-                    <code>work/figures/model_vs_baseline.png</code>
-                </td>
-
-                <td>
-                    Model versus baseline performance
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <code>work/figures/action_distribution.png</code>
-                </td>
-
-                <td>
-                    Distribution of recommended actions
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <code>work/outputs/top20_ranked_recommendations.csv</code>
-                </td>
-
-                <td>
-                    Top-ranked recommendation sample
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <code>work/outputs/baseline_action_score.csv</code>
-                </td>
-
-                <td>
-                    Regenerated ranked action queue
-                </td>
-            </tr>
-
-        </table>
-
-
-        <p>
-            The ranked queue is retained in the repository as a reproducible
-            working artifact. Individual pseudonymous identifiers are not
-            presented as findings or interpreted as client-identifying
-            information in this public paper.
-        </p>
-
-    </section>
-
-
-    <!-- ========================================================= -->
-    <!-- 8. REPRODUCIBILITY -->
-    <!-- ========================================================= -->
-
-    <section>
-
+    <section id="reproducibility">
         <h2>8. Reproducibility</h2>
 
         <p>
@@ -926,135 +1039,79 @@
             <code>work/notebooks/</code>.
         </p>
 
-
         <p>
-            The complete source repository is available at:
-            <a
-                href="https://github.com/SupreetOP/Flyrank"
-                target="_blank"
-                rel="noopener"
-            >
-                GitHub repository
-            </a>.
+            <a class="repo-link"
+               href="https://github.com/SupreetOP/Flyrank"
+               target="_blank"
+               rel="noopener">
+                View the complete project repository on GitHub →
+            </a>
         </p>
 
-
-        <p>
-            The capstone notebook is available at:
-            <a
-                href="https://github.com/SupreetOP/Flyrank/blob/main/work/notebooks/capstone.ipynb"
-                target="_blank"
-                rel="noopener"
-            >
-                capstone.ipynb
-            </a>.
-        </p>
-
-
-        <h3>Analysis notebooks</h3>
+        <h3>Notebook workflow</h3>
 
         <ul>
-
-            <li>
-                <code>w01_research_question.ipynb</code>
-            </li>
-
-            <li>
-                <code>w02_ml_task_framing.ipynb</code>
-            </li>
-
-            <li>
-                <code>w03_data_contract.ipynb</code>
-            </li>
-
-            <li>
-                <code>w03_feature_leakage_check.ipynb</code>
-            </li>
-
-            <li>
-                <code>w04_signal_audit.ipynb</code>
-            </li>
-
-            <li>
-                <code>w04_baseline_score.ipynb</code>
-            </li>
-
-            <li>
-                <code>w05_model.ipynb</code>
-            </li>
-
-            <li>
-                <code>w06_validation_audit.ipynb</code>
-            </li>
-
-            <li>
-                <code>w07_action_playbook.ipynb</code>
-            </li>
-
-            <li>
-                <code>capstone.ipynb</code>
-            </li>
-
+            <li><code>w01_research_question.ipynb</code></li>
+            <li><code>w02_ml_task_framing.ipynb</code></li>
+            <li><code>w03_data_contract.ipynb</code></li>
+            <li><code>w03_feature_leakage_check.ipynb</code></li>
+            <li><code>w04_signal_audit.ipynb</code></li>
+            <li><code>w04_baseline_score.ipynb</code></li>
+            <li><code>w05_model.ipynb</code></li>
+            <li><code>w06_validation_audit.ipynb</code></li>
+            <li><code>w07_action_playbook.ipynb</code></li>
+            <li><code>capstone.ipynb</code></li>
         </ul>
-
 
         <h3>Validation configuration</h3>
 
         <ul>
-
-            <li>
-                Split: 80/20
-            </li>
-
-            <li>
-                <code>random_state = 42</code>
-            </li>
-
-            <li>
-                Stratified target proportion
-            </li>
-
-            <li>
-                Training rows: 265,148
-            </li>
-
-            <li>
-                Validation rows: 66,288
-            </li>
-
+            <li>Split: 80/20</li>
+            <li><code>random_state = 42</code></li>
+            <li>Stratified target proportion</li>
+            <li>Training rows: 265,148</li>
+            <li>Validation rows: 66,288</li>
         </ul>
-
 
         <h3>Random Forest configuration</h3>
 
         <ul>
-
-            <li>
-                <code>n_estimators = 200</code>
-            </li>
-
-            <li>
-                <code>max_depth = 10</code>
-            </li>
-
-            <li>
-                <code>min_samples_leaf = 20</code>
-            </li>
-
-            <li>
-                <code>class_weight = "balanced"</code>
-            </li>
-
-            <li>
-                <code>random_state = 42</code>
-            </li>
-
-            <li>
-                <code>n_jobs = -1</code>
-            </li>
-
+            <li><code>n_estimators = 200</code></li>
+            <li><code>max_depth = 10</code></li>
+            <li><code>min_samples_leaf = 20</code></li>
+            <li><code>class_weight = "balanced"</code></li>
+            <li><code>random_state = 42</code></li>
+            <li><code>n_jobs = -1</code></li>
         </ul>
 
+        <h3>Paper artifacts</h3>
+
+        <table>
+            <tr>
+                <th>Artifact</th>
+                <th>Purpose</th>
+            </tr>
+
+            <tr>
+                <td><code>work/figures/model_vs_baseline.png</code></td>
+                <td>Model versus baseline performance</td>
+            </tr>
+
+            <tr>
+                <td><code>work/figures/action_distribution.png</code></td>
+                <td>Distribution of recommended actions</td>
+            </tr>
+
+            <tr>
+                <td><code>work/outputs/top20_ranked_recommendations.csv</code></td>
+                <td>Top-ranked recommendation sample</td>
+            </tr>
+
+            <tr>
+                <td><code>work/outputs/baseline_action_score.csv</code></td>
+                <td>Regenerated ranked action queue</td>
+            </tr>
+        </table>
 
         <h3>Environment</h3>
 
@@ -1066,58 +1123,52 @@
             repository.
         </p>
 
-
         <p>
             The notebooks contain the executable analysis steps required to
             inspect and reproduce the reported results.
         </p>
 
+        <div class="success">
+            <strong>Reproducibility note:</strong>
+            the reported model evaluation uses the documented 80/20
+            stratified split and <code>random_state = 42</code>. The
+            recommendation queue is a separate rule-based output and should
+            not be interpreted as the Random Forest evaluation itself.
+        </div>
     </section>
 
 
-    <!-- ========================================================= -->
-    <!-- 9. ACKNOWLEDGMENTS -->
-    <!-- ========================================================= -->
+    <!-- =========================================================
+         9. ACKNOWLEDGMENTS
+    ========================================================== -->
 
-    <section>
-
+    <section id="acknowledgments">
         <h2>9. Acknowledgments & data credit</h2>
 
         <p>
             Built on the
-            <a
-                href="https://flyrank.ai"
-                target="_blank"
-                rel="noopener"
-            >
+            <a href="https://flyrank.ai"
+               target="_blank"
+               rel="noopener">
                 FlyRank ML Internship dataset
             </a>.
         </p>
-
 
         <p>
             The analysis is intended for educational and research purposes,
             with results presented using public-safe, measured, directional,
             and decision-support language.
         </p>
-
     </section>
 
 </main>
 
 
-<!-- ========================================================= -->
-<!-- FOOTER -->
-<!-- ========================================================= -->
-
 <footer>
-
     <div class="container">
 
         <p>
-            <strong>
-                Refresh / Content Opportunity Scoring
-            </strong>
+            <strong>Refresh / Content Opportunity Scoring</strong>
         </p>
 
         <p>
@@ -1125,13 +1176,19 @@
         </p>
 
         <p>
+            <a href="https://github.com/SupreetOP/Flyrank"
+               target="_blank"
+               rel="noopener">
+                GitHub Repository
+            </a>
+        </p>
+
+        <p>
             Research artifact for educational and decision-support purposes.
         </p>
 
     </div>
-
 </footer>
-
 
 </body>
 </html>
