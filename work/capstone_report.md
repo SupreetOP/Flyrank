@@ -25,7 +25,6 @@ Data and ML are useful because the warehouse contains a large number of content-
 
 The output is therefore intended as **decision-support**, not an automated content-management system and not evidence that a particular refresh will cause an increase in future clicks.
 
-
 ## 2. Data safety
 
 The analysis uses the FlyRank internship warehouse table `fact_content_daily_performance`.
@@ -48,7 +47,7 @@ The final model used five features:
 * `ga4_pageviews`
 * `ga4_engaged_sessions`
 
-Client and content identifiers were deliberately excluded from model features. The pseudonymous identifiers are used only to identify/group content observations in the analysis and action queue.
+Client and content identifiers were deliberately excluded from model features. The pseudonymous identifiers were used only for grouping and internal analysis and are not treated as predictive features or presented as identifying information in the paper.
 
 The following fields were also excluded because they were not required for the final feature vector, could represent availability metadata, could duplicate other measures, or were not appropriate as predictive inputs for this task:
 
@@ -144,6 +143,8 @@ The resulting modeling frame was divided into training and held-out validation d
 * Training positive rate: 18.74%
 * Validation positive rate: 18.74%
 
+The 80/20 split was stratified using `random_state = 42`. It was **not client-grouped**, so this evaluation should not be interpreted as a test of generalization to completely unseen clients.
+
 The evaluation compares the Random Forest and Week-4 baseline on the same validation set.
 
 | Method               |    ROC-AUC |     PR-AUC |   Accuracy |
@@ -198,7 +199,7 @@ The observed false-negative cases were also informative. Some content items had 
 
 ## 7. Recommendation
 
-The ranked action queue is intended to help editors prioritize human review.
+The ranked action queue from the Week-7 action playbook is a **transparent rule-based decision-support output**. It is separate from the Random Forest evaluation and is intended to provide an interpretable starting point for human review.
 
 ### Priority 1 — REFRESH review
 
@@ -337,18 +338,16 @@ These values are produced by the executed modeling notebook.
 
 The action-playbook notebook regenerates the ranked queue and associated paper artifacts rather than requiring the generated queue data to be committed to the repository.
 
-
 ## 9. Acknowledgments & data credit
 
-Built on the FlyRank ML Internship dataset. Data source: FlyRank.
+Built on the [FlyRank ML Internship dataset](https://flyrank.ai).
 
 The analysis is intended for educational and research purposes, with results presented using public-safe, measured, and decision-support language.
 
 ---
 
 > **Claims checklist before submitting:** observed / measured / directional / decision-support language throughout. No causal claims are made. The analysis does not claim to predict Google's algorithm. No client-identifying details are included.
->
-> **Metrics vs. base rate:** the modeling task has an 18.74% positive rate and an 81.26% negative rate. Accuracy is therefore reported alongside ROC-AUC and PR-AUC rather than used as the sole measure of model quality.
->
-> **Final evidence standard:** reported numbers should match the fresh executed notebooks before deployment.
 
+> **Metrics vs. base rate:** the modeling task has an 18.74% positive rate and an 81.26% negative rate. Accuracy is therefore reported alongside ROC-AUC and PR-AUC rather than used as the sole measure of model quality.
+
+> **Final evidence standard:** reported numbers should match the fresh executed notebooks before deployment.
